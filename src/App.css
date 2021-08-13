@@ -1,0 +1,140 @@
+@import 'antd-mobile/dist/antd-mobile.css';
+
+/*! minireset.css v0.0.2 | MIT License | github.com/jgthms/minireset.css */
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal
+}
+
+ul {
+    list-style: none
+}
+
+button,
+input,
+select,
+textarea {
+    margin: 0
+}
+
+html {
+    box-sizing: border-box
+}
+
+* {
+    box-sizing: inherit
+}
+
+*:before,
+*:after {
+    box-sizing: inherit
+}
+
+img,
+embed,
+object,
+audio,
+video {
+    height: auto;
+    max-width: 100%
+}
+
+iframe {
+    border: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+td,
+th {
+    padding: 0;
+    text-align: left
+}
+
+#box {
+    height: 100vh;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#box #body_router {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#box #body_router #body {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.router-box {
+    position: relative;
+    display: flex;
+    height: 40px;
+    overflow: hidden;
+}
+
+.router-box:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, .1);
+}
+
+
+.router-box li {
+    width: 33.333%;
+    line-height: 40px;
+    text-align: center;
+}
+
+.icon-size {
+    display: inline-block;
+    width: 1.8em !important;
+    height: 1.8em;
+}

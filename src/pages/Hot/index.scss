@@ -1,0 +1,54 @@
+.hot{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    .hotsong{
+            width: 100%;
+            flex: 1;
+            overflow-y: scroll;
+            li{
+                margin: 0 !important;
+                width: 100%;
+                padding:0.8em 0;
+                border-bottom: 1px solid lavender;
+                display: flex;
+                &:first-of-type{
+                    // padding-top: 0;
+                }
+                >div{
+                    &:first-of-type{
+                        flex: 1;
+                        margin-right: 10%;
+                        padding-left: 1em;
+                        .name{
+                            font-size: 1em;
+                            margin-bottom: 0.3em;
+                        }
+                        .artists{
+                            display: flex;
+                            align-items: center;
+                            font-size: 0.8em;
+                            color: #888;
+                            i{
+                                font-style: normal;
+                                color: red;
+                                border:0.5px solid red;
+                                font-size: 0.6em;
+                                padding: 0 0.6em;
+                                border-radius: 0.4em;
+                                transform: scale(0.8);
+                                display: inline-block;
+                            }
+                        }
+                    }
+                    &:last-of-type{
+                        margin-right:10%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+    }
+}
