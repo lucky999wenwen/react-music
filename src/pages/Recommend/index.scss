@@ -7,7 +7,7 @@
         flex: 1;
         overflow-y: scroll;
     }
-    ul{
+    .recommend_card{
         >div{
             font-size: 17px;
             position: relative;
@@ -58,6 +58,23 @@
     }
     .newsong{
         width: 100%;
+        >div{
+            font-size: 17px;
+            position: relative;
+            padding-left: 9px;
+            margin: 0.8em 0;
+            &::after{
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                margin-top: -9px;
+                width: 2px;
+                height: 16px;
+                background-color: #d33a31;
+            }
+        }
         li{
             margin: 0 !important;
             width: 100%;

@@ -10,14 +10,14 @@
   overflow-y: scroll;
 }
 
-.recommend ul > div {
+.recommend .recommend_card > div {
   font-size: 17px;
   position: relative;
   padding-left: 9px;
   margin: 0.8em 0;
 }
 
-.recommend ul > div::after {
+.recommend .recommend_card > div::after {
   content: '';
   display: block;
   position: absolute;
@@ -29,21 +29,21 @@
   background-color: #d33a31;
 }
 
-.recommend ul li {
+.recommend .recommend_card li {
   position: relative;
   display: inline-block;
   width: calc(33.3333% - 7px);
 }
 
-.recommend ul li img {
+.recommend .recommend_card li img {
   width: 100%;
 }
 
-.recommend ul li:nth-of-type(3n - 1) {
+.recommend .recommend_card li:nth-of-type(3n - 1) {
   margin: 0 10.3px;
 }
 
-.recommend ul li > p {
+.recommend .recommend_card li > p {
   font-size: 0.8em;
   padding: 0 0.3em;
   text-overflow: -o-ellipsis-lastline;
@@ -56,7 +56,7 @@
   margin-bottom: 0.5em;
 }
 
-.recommend ul li > span {
+.recommend .recommend_card li > span {
   position: absolute;
   right: 0.5em;
   top: 0;
@@ -66,6 +66,25 @@
 
 .recommend .newsong {
   width: 100%;
+}
+
+.recommend .newsong > div {
+  font-size: 17px;
+  position: relative;
+  padding-left: 9px;
+  margin: 0.8em 0;
+}
+
+.recommend .newsong > div::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -9px;
+  width: 2px;
+  height: 16px;
+  background-color: #d33a31;
 }
 
 .recommend .newsong li {

@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-06 14:14:30
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-10 17:08:01
+ * @LastEditTime: 2021-08-18 16:38:17
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -34,6 +34,7 @@ export default class Play extends Component {
   //获取歌曲时长
   duration = () => {
     let t = this.state.audio.duration;
+    PubSub.publish("songTime", t);
     this.props.getSongTime(t);
   };
 
@@ -50,6 +51,9 @@ export default class Play extends Component {
   //播放时间发生改变
   timeUpdate = () => {
     let t = this.state.audio.currentTime;
+    let t1 = this.state.audio.duration;
+    PubSub.publish("playTime", t);
+    PubSub.publish("songTime", t1);
     this.props.getPlayTime(t);
   };
 

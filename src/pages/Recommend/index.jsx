@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-07-30 16:42:26
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-11 14:53:11
+ * @LastEditTime: 2021-08-18 16:52:53
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -65,7 +65,7 @@ export default class Recommend extends Component {
     return (
       <div className="recommend">
         <div className="recommend_box">
-          <ul>
+          <ul className="recommend_card">
             <div>编辑推荐</div>
             {listPersona.map((item) => {
               return (
@@ -80,7 +80,7 @@ export default class Recommend extends Component {
           <ul className="newsong">
             <div>最新音乐</div>
             {listSong.map((item) => {
-              return <Item key={item.id} id={item.id} name={item.name} artists={item.song.artists[0].name} />;
+              return <Item key={item.id} id={item.id} name={item.name} artists={item.song.artists[0].name} songList={listSong} />;
             })}
           </ul>
         </div>

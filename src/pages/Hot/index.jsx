@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-07-30 16:42:56
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-11 10:49:00
+ * @LastEditTime: 2021-08-18 16:52:37
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -49,7 +49,7 @@ export default class Hot extends Component {
         {/* <img src={coverImgUrl} /> */}
         <ul className="hotsong">
           {hotList.map((item) => {
-            return <Item key={item.id} id={item.id} name={item.name} artists={item.ar[0].name} />;
+            return <Item key={item.id} id={item.id} name={item.name} artists={item.ar[0].name} songList={hotList} />;
           })}
         </ul>
         <PlayControl />

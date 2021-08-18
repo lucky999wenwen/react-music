@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-07-12 15:32:08
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-06 16:02:23
+ * @LastEditTime: 2021-08-18 15:56:45
  * @* : 博虹出品，抄袭必究😄
  */
 /* 
@@ -16,6 +16,7 @@ var initState = {
   isShowPlayPage: false,
   currentPlayId: null,
   isPlay: false,
+  picUrl: null,
 }; //初始化状态
 export default function countReducer(preState = initState, action) {
   //从action对象中获取：type、data
@@ -32,6 +33,9 @@ export default function countReducer(preState = initState, action) {
       return obj;
     case "editIsPlay": //修改当前播放音乐的id
       obj.isPlay = data;
+      return obj;
+    case "editPicUrl": //背景图片路径
+      obj.picUrl = data;
       return obj;
     default:
       return preState;

@@ -1,15 +1,67 @@
 .play_control_box{
     height:10vh;
-    background-color: #fff;
+    padding: 0 15px;
+    background-color: #d43c33;
     width: 100%;
     display: flex;
     align-items: center;
-    box-shadow: 0 0 5px rgba($color: #000000, $alpha: 1.0) ;
+    box-shadow: 0 0 5px rgba($color: #fff, $alpha: 1.0);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     .left{
+        height: 100%;
         flex: 1;
+        display: flex;
+        align-items: center;
+        .picurl{
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #fff;
+            animation:changeright 15s linear infinite;
+           img{
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+           }
+        }
+        .stop{
+            animation-play-state: paused;
+        }
+        .play_time{
+            padding-left: 1rem;
+            color: #fff;
+            span{
+                &:last-of-type{
+                    margin-left: 1rem;
+                }
+            }
+        }
     }
     .right{
-        
+        height: 100%;
+        display: flex;
+        align-items: center;
+        li{
+            // margin: 0 !important;
+            &:first-of-type{
+                img{
+                    transform: rotate(-180deg);
+                }
+            }
+            &:nth-of-type(2){
+                margin: 0 1rem;
+            }
 
+        }
     }
+}
+@keyframes changeright{       
+    0%{transform:rotate(0deg);}
+    50%{transform:rotate(180deg);}
+    100%{transform:rotate(360deg);}
 }

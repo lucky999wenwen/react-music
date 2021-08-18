@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-07-27 11:04:18
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-06 16:02:51
+ * @LastEditTime: 2021-08-18 15:57:28
  * @* : 博虹出品，抄袭必究😄
  */
 /* 
@@ -13,3 +13,4 @@
 export const ISSHOWEPLAYPAGE = "editIsShowPlayPage";
 export const CURRENTPLAYID = "editCurrentPlayId";
 export const ISPLAY = "editIsPlay";
+export const PICURL = "editPicUrl";

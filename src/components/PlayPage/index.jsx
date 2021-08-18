@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-04 08:59:49
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-10 16:54:47
+ * @LastEditTime: 2021-08-18 17:31:58
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -17,7 +17,7 @@ import Play from "@/components/Play";
 //引入store，用于获取redux中保存状态
 import store from "@/redux/store";
 //引入actionCreator，专门用于创建action对象
-import { editIsShowPlayPageAction, editIsPlay } from "@/redux/count_action";
+import { editIsShowPlayPageAction, editIsPlay, editPicUrl } from "@/redux/count_action";
 import "./index.scss";
 
 export default class PlayPage extends Component {
@@ -36,12 +36,14 @@ export default class PlayPage extends Component {
     layricTimg: "[00:00.000]",
     layricIndex: 0,
     isPlay: false,
+    playModel: 1,
   };
 
   //获取歌曲详情
   songDetail = (id) => {
     songDetail(id).then((res) => {
       this.setState({ detail: res.songs[0] });
+      store.dispatch(editPicUrl(res.songs[0].al.picUrl));
     });
   };
 
@@ -103,8 +105,92 @@ export default class PlayPage extends Component {
     this.setState({ playLong: val });
     PubSub.publish("editPlayTime", dt * (val / 100));
   };
+  //上一曲
+  PrevPreson = () => {
+    let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+    let { songList } = songListObj;
+    const { playModel } = songListObj;
+    let id = songListObj.id;
+    for (let i = 0; i < songList.length; i++) {
+      if (id == songList[i].id) {
+        if (i == 0) {
+          id = songList[songList.length - 1].id;
+        } else {
+          id = songList[i - 1].id;
+        }
+        check(id).then((res) => {
+          if (res.success) {
+            localStorage.setItem(
+              "songListObj",
+              JSON.stringify({
+                id: id,
+                songList: songList,
+                playModel: playModel,
+              })
+            );
+            store.dispatch(editCurrentIdAction(id));
+            localStorage.setItem(
+              "songListObj",
+              JSON.stringify({
+                id: id,
+                songList: songList,
+                playModel: playModel,
+              })
+            );
+          } else {
+            Toast.fail(res.message, 1);
+          }
+        });
+        return;
+      }
+    }
+  };
+
+  //下一曲
+  NextPreson = () => {
+    let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+    let { songList } = songListObj;
+    const { playModel } = songListObj;
+    let id = songListObj.id;
+    for (let i = 0; i < songList.length; i++) {
+      if (id == songList[i].id) {
+        if (i == songList.length - 1) {
+          id = songList[0].id;
+        } else {
+          id = songList[i + 1].id;
+        }
+        check(id).then((res) => {
+          if (res.success) {
+            localStorage.setItem(
+              "songListObj",
+              JSON.stringify({
+                id: id,
+                songList: songList,
+                playModel: playModel,
+              })
+            );
+            store.dispatch(editCurrentIdAction(id));
+            localStorage.setItem(
+              "songListObj",
+              JSON.stringify({
+                id: id,
+                songList: songList,
+                playModel: playModel,
+              })
+            );
+          } else {
+            Toast.fail(res.message, 1);
+          }
+        });
+        return;
+      }
+    }
+  };
 
   componentDidMount() {
+    let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+    const { playModel } = songListObj;
+    this.setState({ playModel });
     //检测redux中状态的变化，只要变化，就调用render
     store.subscribe(() => {
       if (store.getState().currentPlayId !== this.state.id) {
@@ -117,7 +203,7 @@ export default class PlayPage extends Component {
   }
 
   render() {
-    const { show, id, detail, play, playTime, currentPlayTime, playLong, lyric, layricIndex, isPlay } = this.state;
+    const { show, id, detail, play, playTime, currentPlayTime, playLong, lyric, layricIndex, isPlay, playModel } = this.state;
     return (
       <div className="layout" style={{ top: show ? 0 : "110vh" }}>
         <div className="content">
@@ -164,10 +250,17 @@ export default class PlayPage extends Component {
                   </div>
                   <ul className="control_btn">
                     <li>
-                      <img src={require("@/assets/icon/liebiao.png").default} />
+                      {/* 1、列表循环 2、单曲循环 3、随机播放 */}
+                      <img
+                        style={{ display: playModel == 1 ? "none" : "inline-block" }}
+                        src={require("@/assets/icon/liebiao.png").default}
+                        // onClick={this.changModel(1)}
+                      />
+                      <img style={{ display: playModel == 2 ? "none" : "inline-block" }} src={require("@/assets/icon/danqu.png").default} />
+                      <img style={{ display: playModel == 3 ? "none" : "inline-block" }} src={require("@/assets/icon/suiji.png").default} />
                     </li>
                     <li>
-                      <img src={require("@/assets/icon/next-prev.png").default} />
+                      <img src={require("@/assets/icon/next-prev.png").default} onClick={this.PrevPreson} />
                     </li>
                     <li>
                       <img
@@ -182,7 +275,7 @@ export default class PlayPage extends Component {
                       />
                     </li>
                     <li>
-                      <img src={require("@/assets/icon/next-prev.png").default} />
+                      <img src={require("@/assets/icon/next-prev.png").default} onClick={this.NextPreson} />
                     </li>
                     <li>
                       <img src={require("@/assets/icon/gedan.png").default} />

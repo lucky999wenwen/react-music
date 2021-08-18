@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-03 14:17:48
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-10 17:30:51
+ * @LastEditTime: 2021-08-18 16:57:44
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -24,7 +24,7 @@ class Item extends Component {
   };
 
   toPlay = () => {
-    const { id } = this.props;
+    const { id, songList } = this.props;
     const { currentPlayId } = this.state;
     if (id == currentPlayId) {
       store.dispatch(editIsPlay(true));
@@ -34,6 +34,14 @@ class Item extends Component {
       if (res.success) {
         store.dispatch(editCurrentIdAction(id));
         store.dispatch(editIsShowPlayPageAction(true));
+        localStorage.setItem(
+          "songListObj",
+          JSON.stringify({
+            id: id,
+            songList: songList,
+            playModel: 1,
+          })
+        );
       } else {
         Toast.fail(res.message, 1);
       }
