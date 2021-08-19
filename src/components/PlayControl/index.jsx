@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-11 10:43:54
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-18 17:25:03
+ * @LastEditTime: 2021-08-19 15:45:56
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -62,15 +62,18 @@ export default class PlayControl extends Component {
               })
             );
             store.dispatch(editCurrentIdAction(id));
-            localStorage.setItem(
-              "songListObj",
-              JSON.stringify({
-                id: id,
-                songList: songList,
-                playModel: playModel,
-              })
-            );
           } else {
+            let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+            let { songList } = songListObj;
+            const { playModel } = songListObj;
+            let id = songListObj.id;
+            for (let i = 0; i < songList.length; i++) {
+              if (id == songList[i].id) {
+                id = songList[i + 1].id;
+                store.dispatch(editCurrentIdAction(id));
+                localStorage.setItem("songListObj", JSON.stringify({ id: id, songList: songList, playModel: playModel }));
+              }
+            }
             Toast.fail(res.message, 1);
           }
         });
@@ -103,15 +106,18 @@ export default class PlayControl extends Component {
               })
             );
             store.dispatch(editCurrentIdAction(id));
-            localStorage.setItem(
-              "songListObj",
-              JSON.stringify({
-                id: id,
-                songList: songList,
-                playModel: playModel,
-              })
-            );
           } else {
+            let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+            let { songList } = songListObj;
+            const { playModel } = songListObj;
+            let id = songListObj.id;
+            for (let i = 0; i < songList.length; i++) {
+              if (id == songList[i].id) {
+                id = songList[i + 1].id;
+                store.dispatch(editCurrentIdAction(id));
+                localStorage.setItem("songListObj", JSON.stringify({ id: id, songList: songList, playModel: playModel }));
+              }
+            }
             Toast.fail(res.message, 1);
           }
         });

@@ -4,20 +4,21 @@
  * @Author: wanglong
  * @Date: 2021-08-04 08:59:49
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-18 17:31:58
+ * @LastEditTime: 2021-08-19 15:46:14
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
 import { Slider, WingBlank, WhiteSpace } from "antd-mobile";
 import PubSub from "pubsub-js";
+import { Toast } from "antd-mobile";
 
-import { songDetail, songUrl, getLyric } from "@/api/api";
+import { songDetail, songUrl, getLyric, check } from "@/api/api";
 
 import Play from "@/components/Play";
 //引入store，用于获取redux中保存状态
 import store from "@/redux/store";
 //引入actionCreator，专门用于创建action对象
-import { editIsShowPlayPageAction, editIsPlay, editPicUrl } from "@/redux/count_action";
+import { editIsShowPlayPageAction, editIsPlay, editPicUrl, editCurrentIdAction } from "@/redux/count_action";
 import "./index.scss";
 
 export default class PlayPage extends Component {
@@ -118,6 +119,7 @@ export default class PlayPage extends Component {
         } else {
           id = songList[i - 1].id;
         }
+        store.dispatch(editCurrentIdAction(id));
         check(id).then((res) => {
           if (res.success) {
             localStorage.setItem(
@@ -129,15 +131,18 @@ export default class PlayPage extends Component {
               })
             );
             store.dispatch(editCurrentIdAction(id));
-            localStorage.setItem(
-              "songListObj",
-              JSON.stringify({
-                id: id,
-                songList: songList,
-                playModel: playModel,
-              })
-            );
           } else {
+            let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+            let { songList } = songListObj;
+            const { playModel } = songListObj;
+            let id = songListObj.id;
+            for (let i = 0; i < songList.length; i++) {
+              if (id == songList[i].id) {
+                id = songList[i + 1].id;
+                store.dispatch(editCurrentIdAction(id));
+                localStorage.setItem("songListObj", JSON.stringify({ id: id, songList: songList, playModel: playModel }));
+              }
+            }
             Toast.fail(res.message, 1);
           }
         });
@@ -179,6 +184,17 @@ export default class PlayPage extends Component {
               })
             );
           } else {
+            let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+            let { songList } = songListObj;
+            const { playModel } = songListObj;
+            let id = songListObj.id;
+            for (let i = 0; i < songList.length; i++) {
+              if (id == songList[i].id) {
+                id = songList[i + 1].id;
+                store.dispatch(editCurrentIdAction(id));
+                localStorage.setItem("songListObj", JSON.stringify({ id: id, songList: songList, playModel: playModel }));
+              }
+            }
             Toast.fail(res.message, 1);
           }
         });
@@ -187,10 +203,41 @@ export default class PlayPage extends Component {
     }
   };
 
+  //
+  changModel = (value) => {
+    return () => {
+      let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+      let { playModel, id, songList } = songListObj;
+      if (value == 1) {
+        playModel = 2;
+        this.setState({ playModel: 2 });
+      }
+      if (value == 2) {
+        playModel = 3;
+        this.setState({ playModel: 3 });
+      }
+      if (value == 3) {
+        playModel = 1;
+        this.setState({ playModel: 1 });
+      }
+      localStorage.setItem(
+        "songListObj",
+        JSON.stringify({
+          id: id,
+          songList: songList,
+          playModel: playModel,
+        })
+      );
+    };
+  };
+
   componentDidMount() {
     let songListObj = JSON.parse(localStorage.getItem("songListObj"));
-    const { playModel } = songListObj;
-    this.setState({ playModel });
+    if (songListObj) {
+      const { playModel } = songListObj;
+      this.setState({ playModel });
+    }
+
     //检测redux中状态的变化，只要变化，就调用render
     store.subscribe(() => {
       if (store.getState().currentPlayId !== this.state.id) {
@@ -252,12 +299,20 @@ export default class PlayPage extends Component {
                     <li>
                       {/* 1、列表循环 2、单曲循环 3、随机播放 */}
                       <img
-                        style={{ display: playModel == 1 ? "none" : "inline-block" }}
+                        style={{ display: playModel == 1 ? "inline-block" : "none" }}
                         src={require("@/assets/icon/liebiao.png").default}
-                        // onClick={this.changModel(1)}
+                        onClick={this.changModel(1)}
                       />
-                      <img style={{ display: playModel == 2 ? "none" : "inline-block" }} src={require("@/assets/icon/danqu.png").default} />
-                      <img style={{ display: playModel == 3 ? "none" : "inline-block" }} src={require("@/assets/icon/suiji.png").default} />
+                      <img
+                        style={{ display: playModel == 2 ? "inline-block" : "none" }}
+                        src={require("@/assets/icon/danqu.png").default}
+                        onClick={this.changModel(2)}
+                      />
+                      <img
+                        style={{ display: playModel == 3 ? "inline-block" : "none" }}
+                        src={require("@/assets/icon/suiji.png").default}
+                        onClick={this.changModel(3)}
+                      />
                     </li>
                     <li>
                       <img src={require("@/assets/icon/next-prev.png").default} onClick={this.PrevPreson} />

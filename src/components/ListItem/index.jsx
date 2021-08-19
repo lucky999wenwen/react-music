@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-03 14:17:48
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-18 16:57:44
+ * @LastEditTime: 2021-08-19 15:24:56
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -32,6 +32,11 @@ class Item extends Component {
     }
     check(id).then((res) => {
       if (res.success) {
+        let songListObj = JSON.parse(localStorage.getItem("songListObj"));
+        let playModel = 1;
+        if (songListObj) {
+          playModel = songListObj.playModel;
+        }
         store.dispatch(editCurrentIdAction(id));
         store.dispatch(editIsShowPlayPageAction(true));
         localStorage.setItem(
@@ -39,7 +44,7 @@ class Item extends Component {
           JSON.stringify({
             id: id,
             songList: songList,
-            playModel: 1,
+            playModel: playModel,
           })
         );
       } else {
