@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-07-30 16:42:26
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-18 16:52:53
+ * @LastEditTime: 2021-08-23 16:10:46
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -56,6 +56,12 @@ export default class Recommend extends Component {
     }
   };
 
+  toRecomList = (item) => {
+    return () => {
+      this.props.history.push(`/recomlist/${item.id}`);
+    };
+  };
+
   componentDidMount() {
     this.getPersonalized();
     this.getNewsongList();
@@ -70,7 +76,7 @@ export default class Recommend extends Component {
             {listPersona.map((item) => {
               return (
                 <li key={item.id}>
-                  <img src={item.picUrl} />
+                  <img src={item.picUrl} onClick={this.toRecomList(item)} />
                   <span>{(item.playCount / 10000).toFixed(1)}万</span>
                   <p>{item.name}</p>
                 </li>

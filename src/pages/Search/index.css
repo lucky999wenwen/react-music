@@ -1,0 +1,122 @@
+.search_box {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.search_box .top {
+  position: relative;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.search_box .top .am-list-item {
+  flex: 1;
+  margin-right: 0.5rem;
+  height: 2.4rem;
+  min-height: 2.4rem;
+  line-height: 1rem;
+  border: 1px solid #eee;
+  font-size: 1rem;
+  border-radius: 1.5rem;
+}
+
+.search_box .top .am-list-item input {
+  font-size: 1rem !important;
+}
+
+.search_box .top .am-list-item > div {
+  padding-right: 4rem;
+}
+
+.search_box .top .am-button {
+  position: absolute;
+  right: 1.6rem;
+  top: calc(15px + 0.15rem);
+  width: 3rem;
+  display: inline-block;
+  padding: 0;
+  height: 2.1rem;
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+}
+
+.search_box .top .am-button > span {
+  font-size: 0.7rem;
+  line-height: 2.1rem;
+}
+
+.search_box .list {
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+.search_box .list > div {
+  font-size: 17px;
+  position: relative;
+  padding-left: 9px;
+  margin: 0.8em 0;
+}
+
+.search_box .list > div::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -9px;
+  width: 2px;
+  height: 16px;
+  background-color: #d33a31;
+}
+
+.search_box .list li {
+  margin: 0 !important;
+  width: 100%;
+  padding: 0.8em 0;
+  border-bottom: 1px solid lavender;
+  display: flex;
+}
+
+.search_box .list li:first-of-type {
+  padding-top: 0;
+}
+
+.search_box .list li > div:first-of-type {
+  flex: 1;
+  margin-right: 10%;
+  padding-left: 1em;
+}
+
+.search_box .list li > div:first-of-type .name {
+  font-size: 1em;
+  margin-bottom: 0.3em;
+}
+
+.search_box .list li > div:first-of-type .artists {
+  display: flex;
+  align-items: center;
+  font-size: 0.8em;
+  color: #888;
+}
+
+.search_box .list li > div:first-of-type .artists i {
+  font-style: normal;
+  color: red;
+  border: 0.5px solid red;
+  font-size: 0.6em;
+  padding: 0 0.6em;
+  border-radius: 0.4em;
+  transform: scale(0.8);
+  display: inline-block;
+}
+
+.search_box .list li > div:last-of-type {
+  margin-right: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

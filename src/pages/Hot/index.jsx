@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-07-30 16:42:56
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-18 16:52:37
+ * @LastEditTime: 2021-08-23 16:00:20
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -24,14 +24,12 @@ export default class Hot extends Component {
   getHotlist = () => {
     let data = JSON.parse(localStorage.getItem("hotListObj"));
     if (data && data.time > new Date().getTime()) {
-      this.setState({ hotList: data.hotList, coverImgUrl: data.coverImgUrl, description: data.description });
+      this.setState({ hotList: data.hotList });
     } else {
       getHotlist().then((res) => {
-        this.setState({ hotList: res.playlist.tracks, coverImgUrl: res.playlist.coverImgUrl, description: res.playlist.description });
+        this.setState({ hotList: res.songs });
         let obj = {
-          hotList: res.playlist.tracks,
-          coverImgUrl: res.playlist.coverImgUrl,
-          description: res.playlist.description,
+          hotList: res.songs,
           time: new Date().getTime() + 86400000 * 2,
         };
         localStorage.setItem("hotListObj", JSON.stringify(obj));
@@ -43,7 +41,7 @@ export default class Hot extends Component {
   }
 
   render() {
-    const { hotList, coverImgUrl } = this.state;
+    const { hotList } = this.state;
     return (
       <div className="hot">
         {/* <img src={coverImgUrl} /> */}

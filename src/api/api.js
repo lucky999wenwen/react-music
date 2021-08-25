@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-03 10:35:27
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-04 11:50:50
+ * @LastEditTime: 2021-08-24 14:24:33
  * @* : 博虹出品，抄袭必究😄
  */
 // personalized / newsong;
@@ -29,7 +29,7 @@ export function getNewsongList() {
 //获取热歌榜列表
 export function getHotlist() {
   return request({
-    url: "/top/list?idx=1",
+    url: "/artist/top/song?id=6452",
     method: "get",
   });
 }
@@ -62,6 +62,22 @@ export function songUrl(id) {
 export function getLyric(id) {
   return request({
     url: "/lyric?id=" + id,
+    method: "get",
+  });
+}
+
+//获取歌单详情
+export function playlistDe(id) {
+  return request({
+    url: "/playlist/detail?id=" + id,
+    method: "get",
+  });
+}
+
+//搜索
+export function search(keywords) {
+  return request({
+    url: "/search/suggest?keywords=" + keywords,
     method: "get",
   });
 }
