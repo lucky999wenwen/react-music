@@ -4,17 +4,18 @@
  * @Author: wanglong
  * @Date: 2021-07-30 16:42:26
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-23 16:10:46
+ * @LastEditTime: 2021-10-21 16:59:15
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
 
-import { getNewsongList, getPersonalized } from "@/api/api";
+import { getNewsongList, getPersonalized, test } from "@/api/api";
 
 import Item from "@/components/ListItem";
 import PlayControl from "@/components/PlayControl";
 
 import "./index.scss";
+import { Button } from "antd-mobile";
 
 export default class Recommend extends Component {
   state = {
@@ -61,7 +62,6 @@ export default class Recommend extends Component {
       this.props.history.push(`/recomlist/${item.id}`);
     };
   };
-
   componentDidMount() {
     this.getPersonalized();
     this.getNewsongList();

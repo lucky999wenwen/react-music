@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-11 10:43:54
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-19 15:45:56
+ * @LastEditTime: 2021-09-28 16:57:52
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -22,6 +22,7 @@ export default class PlayControl extends Component {
     id: null,
     isPlay: false,
     picUrl: null,
+    name: "",
     playTime: "00" + ":" + "00",
     currentPlayTime: "00" + ":" + "00",
   };
@@ -174,7 +175,7 @@ export default class PlayControl extends Component {
   }
 
   render() {
-    const { id, isPlay, show, picUrl, playTime, currentPlayTime } = this.state;
+    const { id, isPlay, show, picUrl, playTime, currentPlayTime, name } = this.state;
     return (
       <div className="play_control_box" style={{ display: id ? "flex" : "none" }}>
         <div className="left" onClick={this.showPlayPage}>
@@ -182,6 +183,7 @@ export default class PlayControl extends Component {
             <img src={picUrl ? picUrl : ""} />
           </div>
           <div className="play_time">
+            <p> {name}</p>
             <span>{playTime}</span>
             <span>{currentPlayTime}</span>
           </div>

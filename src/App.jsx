@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-07-09 15:11:42
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-25 10:42:33
+ * @LastEditTime: 2021-09-02 14:34:36
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -19,7 +19,8 @@ import Search from "@/pages/Search";
 /* 路由组件   end */
 
 /* 一般组件   start */
-import AnimatedSwitch from "@/components/AnimatedSwitch";
+// import AnimatedSwitch from "@/components/AnimatedSwitch";
+import { AnimatedSwitch } from "react-router-transition";
 import MyNavLink from "@/components/MyNavLink";
 import Header from "@/components/Header";
 import PlayPage from "@/components/PlayPage";
@@ -51,7 +52,7 @@ class App extends Component {
             </ul>
             <div id="body">
               {/* 注册路由 */}
-              <AnimatedSwitch>
+              <AnimatedSwitch atEnter={{ opacity: 0 }} atLeave={{ opacity: 0 }} atActive={{ opacity: 1 }} className="switch-wrapper">
                 <Route path="/recommend" component={Recommend} />
                 <Route path="/hot" component={Hot} />
                 <Route path="/search" component={Search} />

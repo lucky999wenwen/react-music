@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-04 08:59:49
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-19 15:46:14
+ * @LastEditTime: 2021-09-28 16:58:02
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -15,6 +15,7 @@ import { Toast } from "antd-mobile";
 import { songDetail, songUrl, getLyric, check } from "@/api/api";
 
 import Play from "@/components/Play";
+import SongList from "./songList";
 //引入store，用于获取redux中保存状态
 import store from "@/redux/store";
 //引入actionCreator，专门用于创建action对象
@@ -38,6 +39,7 @@ export default class PlayPage extends Component {
     layricIndex: 0,
     isPlay: false,
     playModel: 1,
+    isShouList: false,
   };
 
   //获取歌曲详情
@@ -45,6 +47,7 @@ export default class PlayPage extends Component {
     songDetail(id).then((res) => {
       this.setState({ detail: res.songs[0] });
       store.dispatch(editPicUrl(res.songs[0].al.picUrl));
+      // PubSub.publish("songName", res.songs.length ? res.songs[0].name + "-" + res.songs[0].ar[0].name : "");
     });
   };
 
@@ -84,7 +87,7 @@ export default class PlayPage extends Component {
   //获取歌曲歌词
   getLyric = (id) => {
     getLyric(id).then((res) => {
-      this.setState({ lyric: res.lrc.lyric.split("\n") });
+      this.setState({ lyric: res.lrc ? res.lrc.lyric.split("\n") : [] });
     });
   };
 
@@ -248,9 +251,15 @@ export default class PlayPage extends Component {
       this.setState({ show: store.getState().isShowPlayPage, id: store.getState().currentPlayId, isPlay: store.getState().isPlay });
     });
   }
+  showSongList = (value) => {
+    this.setState({ isShouList: value });
+  };
+  isShouListPage = () => {
+    this.setState({ isShouList: true });
+  };
 
   render() {
-    const { show, id, detail, play, playTime, currentPlayTime, playLong, lyric, layricIndex, isPlay, playModel } = this.state;
+    const { show, id, detail, play, playTime, currentPlayTime, playLong, lyric, layricIndex, isPlay, playModel, isShouList } = this.state;
     return (
       <div className="layout" style={{ top: show ? 0 : "110vh" }}>
         <div className="content">
@@ -333,7 +342,7 @@ export default class PlayPage extends Component {
                       <img src={require("@/assets/icon/next-prev.png").default} onClick={this.NextPreson} />
                     </li>
                     <li>
-                      <img src={require("@/assets/icon/gedan.png").default} />
+                      <img src={require("@/assets/icon/gedan.png").default} onClick={this.isShouListPage} />
                     </li>
                   </ul>
                 </div>
@@ -342,6 +351,7 @@ export default class PlayPage extends Component {
           </div>
         </div>
         <Play dt={detail ? detail.dt : 0} getSongTime={this.getSongTime} getPlayTime={this.getPlayTime} />
+        <SongList show={isShouList} showSongList={this.showSongList} />
       </div>
     );
   }

@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-07-30 16:43:29
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-25 10:01:30
+ * @LastEditTime: 2021-09-28 16:28:26
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -43,7 +43,15 @@ export default class Search extends Component {
         </div>
         <ul className="list">
           {list.map((item) => {
-            return <Item key={item.id} id={item.id} name={item.name} artists={item.name} songList={list} />;
+            return (
+              <Item
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                artists={item.artists && item.artists.length ? item.artists[0].name : item.name}
+                songList={list}
+              />
+            );
           })}
         </ul>
         <PlayControl />

@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-03 14:17:48
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-19 15:24:56
+ * @LastEditTime: 2021-09-28 16:22:23
  * @* : 博虹出品，抄袭必究😄
  */
 import React, { Component } from "react";
@@ -56,6 +56,7 @@ class Item extends Component {
     store.dispatch(editIsPlay(false));
   };
   componentDidMount() {
+    this.setState({ currentPlayId: store.getState().currentPlayId, isPlay: store.getState().isPlay });
     //检测redux中状态的变化，只要变化，就调用render
     store.subscribe(() => {
       this.setState({ currentPlayId: store.getState().currentPlayId, isPlay: store.getState().isPlay });

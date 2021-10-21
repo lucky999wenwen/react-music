@@ -4,7 +4,7 @@
  * @Author: wanglong
  * @Date: 2021-08-03 10:35:27
  * @LastEditors: wanglong
- * @LastEditTime: 2021-08-24 14:24:33
+ * @LastEditTime: 2021-10-20 16:57:56
  * @* : 博虹出品，抄袭必究😄
  */
 // personalized / newsong;
@@ -79,5 +79,14 @@ export function search(keywords) {
   return request({
     url: "/search/suggest?keywords=" + keywords,
     method: "get",
+  });
+}
+
+//搜索
+export function test(data) {
+  return request({
+    url: "/backend/v1/cultivate/a",
+    method: "post",
+    data,
   });
 }
