@@ -4,12 +4,13 @@
  * @Author: wanglong
  * @Date: 2021-08-02 11:58:45
  * @LastEditors: wanglong
- * @LastEditTime: 2021-10-21 16:59:32
+ * @LastEditTime: 2021-12-01 11:43:28
  * @* : 博虹出品，抄袭必究😄
  */
 const proxy = require("http-proxy-middleware");
 
 module.exports = function (app) {
+  console.log(app);
   app.use(
     proxy("/dev", {
       //api1是需要转发的请求(所有带有/api1前缀的请求都会转发给5000)
